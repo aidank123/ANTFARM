@@ -1,13 +1,21 @@
 # Define a ant object by extending pygame.sprite.Sprite
-# The surface drawn on the screen is now an attribute of 'ant'
+# The surface drawn on the MAP is now an attribute of 'ant'
 import pygame
 import random
 import Pheremone_Map as pm
+import Globals as gl
 
-# Define constants for the screen width and height
-SCREEN_WIDTH = 1100
-SCREEN_HEIGHT = 800
 
+#IMPORT GLOBALS INTO EVERY CLASS
+
+#creating globals object and calling each method
+g = gl.Globals()
+NUMBER_OF_ANTS = g.get_number_of_ants()
+MAP_HEIGHT = g.get_height()
+MAP_WIDTH = g.get_width()
+HIVE_LOCATIONS = g.get_hive_locations()
+FOOD_LOCATIONS = g.get_food_locations()
+ANT_COLOR = g.get_ant_color()
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -28,8 +36,15 @@ class Ant(pygame.sprite.Sprite):
     def __init__(self):
         super(Ant, self).__init__()
         self.surf = pygame.Surface((4, 4))
-        self.surf.fill((255, 255, 255))
+        self.surf.fill(ANT_COLOR)
         self.rect = self.surf.get_rect()
+        
+        #initiating ants to hive location. Right now its better to stick with the one location
+        for h in HIVE_LOCATIONS:
+            x = h[0]
+            y = h[1]
+            self.rect.x = x
+            self.rect.y = y
     
     #add location to pheremone map
     def add_location(self):
@@ -39,12 +54,12 @@ class Ant(pygame.sprite.Sprite):
     def stay_on_screen(self):
         if self.rect.left < 0:
             self.rect.left = 0
-        if self.rect.right > SCREEN_WIDTH:
-            self.rect.right = SCREEN_WIDTH
+        if self.rect.right > MAP_WIDTH:
+            self.rect.right = MAP_WIDTH
         if self.rect.top <= 0:
             self.rect.top = 0
-        if self.rect.bottom >= SCREEN_HEIGHT:
-            self.rect.bottom = SCREEN_HEIGHT
+        if self.rect.bottom >= MAP_HEIGHT:
+            self.rect.bottom = MAP_HEIGHT
     # Move the sprite based on user keypresses
     
     def update(self, pressed_keys):

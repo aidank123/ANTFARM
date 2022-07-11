@@ -5,6 +5,23 @@ import time
 import Ant as a
 import Food as f
 import Pheremone_Map as pm
+import Globals as gl
+
+
+#IMPORT GLOBALS INTO EVERY CLASS
+
+#creating globals object and calling each method
+g = gl.Globals()
+NUMBER_OF_ANTS = g.get_number_of_ants()
+MAP_HEIGHT = g.get_height()
+MAP_WIDTH = g.get_width()
+HIVE_LOCATIONS = g.get_hive_locations()
+FOOD_LOCATIONS = g.get_food_locations()
+ANT_COLOR = g.get_ant_color()
+HIVE_COLOR = g.get_hive_color()
+MAP_COLOR = g.get_map_color()
+FOOD_COLOR = g.get_food_color()
+
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -18,34 +35,28 @@ from pygame.locals import (
     QUIT,
 )
 
-
 # Initialize pygame
 pygame.init()
 
-
-# Define constants for the screen width and height
-SCREEN_WIDTH = 1100
-SCREEN_HEIGHT = 800
-
-
 # Create the screen object
-# The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((MAP_WIDTH, MAP_HEIGHT))
 
-#initiate map
-
+#initiate map object
 pheremone_map = pm.Pheremone_Map()
-# Instantiate ants. Right now, this is just a rectangle.
-#initiate food 
+
+#initiate food object
 food_locations = f.Food()
 
+#initiate ants stored as a dictionary
 ants = {}
-for x in range(100):
+for x in range(NUMBER_OF_ANTS):
     ants["ant{0}".format(x)] = a.Ant()
 ANTS = pygame.sprite.Group()
 
+#add ants to sprite group
 for a in ants:
     ANTS.add(ants[a])
+
 
 # Variable to keep the main loop running
 RUNNING, PAUSE = 0, 1
@@ -68,45 +79,59 @@ while True:
             running = False
     if state == RUNNING:
         
-        if event.type == pygame.MOUSEBUTTONUP:
-            x,y = pygame.mouse.get_pos()
-            food_locations.add_location([x,y])
+#         if event.type == pygame.MOUSEBUTTONUP:
+#             x,y = pygame.mouse.get_pos()
+#             food_locations.add_location([x,y])
               
         # Get all the keys currently pressed
-        pressed_keys = pygame.key.get_pressed()
+#         pressed_keys = pygame.key.get_pressed()
         # Update the player sprite based on user keypresses
         #ant.update(pressed_keys)
         for a in ANTS:
             a.random_pathing()
-            a.update(pressed_keys)
-            a.add_location()
+#             a.update(pressed_keys)
+#             a.add_location()
 
-        # Fill the screen with black
-        screen.fill((0, 0, 0))
+        # Fill the screen with map color
+        screen.fill(MAP_COLOR)
 
         for a in ANTS:
             screen.blit(a.surf, a.rect)
             
-        for f in food_locations.get_map():
+        for f in FOOD_LOCATIONS:
             x = f[0]
             y = f[1]
-            pygame.draw.rect(screen, (255,255,255), pygame.Rect(x,y, 20, 20))
+            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 20, 20))
+                                     
+        for h in HIVE_LOCATIONS:
+            x = h[0]
+            y = h[1]
+            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
             
     elif state == PAUSE:
         
-         # Fill the screen with black
-        screen.fill((0, 0, 0))
+         # Fill the screen with map color
+        screen.fill(MAP_COLOR)
 
         for a in ANTS:
             screen.blit(a.surf, a.rect)
             
+        for f in FOOD_LOCATIONS:
+            x = f[0]
+            y = f[1]
+            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 20, 20))
+            
+        for h in HIVE_LOCATIONS:
+            x = h[0]
+            y = h[1]
+            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
     
     # Update the display
     pygame.display.flip()
     
-    if(loop_count == 100):
-        print(pheremone_map.get_map())
+#     if(loop_count == 100):
+#         print(pheremone_map.get_map())
             
     loop_count += 1
-    #spacebar to pause game
+
     

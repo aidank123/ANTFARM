@@ -1,3 +1,5 @@
+#this class will be used to build the math which will update the pheremone map
+import numpy as np
 import Globals as gl
 
 
@@ -11,7 +13,9 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 
-class Pathing:
+class Pheremone_Math:
     
     def __init__(self):
         
+        
+    def 
