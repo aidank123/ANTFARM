@@ -18,4 +18,4 @@ class Pheremone_Math:
     def __init__(self):
         
         
-    def 
+    

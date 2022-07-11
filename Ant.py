@@ -4,7 +4,7 @@ import pygame
 import random
 import Pheremone_Map as pm
 import Globals as gl
-
+import Pathing as p
 
 #IMPORT GLOBALS INTO EVERY CLASS
 
@@ -16,6 +16,8 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 ANT_COLOR = g.get_ant_color()
+
+pathing = p.Pathing()
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -38,6 +40,7 @@ class Ant(pygame.sprite.Sprite):
         self.surf = pygame.Surface((4, 4))
         self.surf.fill(ANT_COLOR)
         self.rect = self.surf.get_rect()
+        self.has_food = False
         
         #initiating ants to hive location. Right now its better to stick with the one location
         for h in HIVE_LOCATIONS:
@@ -78,13 +81,39 @@ class Ant(pygame.sprite.Sprite):
     def random_pathing(self):
         rand = random.randint(0,3)
         if rand == 0:
-            self.rect.move_ip(0, -3)
+            self.rect.move_ip(0, -1)
         if rand == 1:
-            self.rect.move_ip(0, 3)
+            self.rect.move_ip(0, 1)
         if rand == 2:
-            self.rect.move_ip(-3, 0)
+            self.rect.move_ip(-1, 0)
         if rand == 3:
-            self.rect.move_ip(3, 0)
+            self.rect.move_ip(1, 0)
         
     
         self.stay_on_screen()
+        
+    def ant_location(self):
+        x = self.rect.x
+        y = self.rect.y
+        return [x,y]
+    
+    def Pathing(self):
+        pathing.local_search(self.ant_location())
+#         if rand == 0:
+#             self.rect.move_ip(0, -3)
+#         if rand == 1:
+#             self.rect.move_ip(0, 3)
+#         if rand == 2:
+#             self.rect.move_ip(-3, 0)
+#         if rand == 3:
+#             self.rect.move_ip(3, 0)
+
+    
+        
+    def check_for_food(self):
+        
+        for p in pathing.surrounding_squares(self.ant_location()):
+
+            if p in FOOD_LOCATIONS:
+                print('hi')
+        

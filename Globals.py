@@ -12,7 +12,7 @@ class Globals:
         self.WIDTH = 1100
         self.HEIGHT = 800
         self.HIVE_LOCATIONS = [[300,300]] #must be formatted in this way so the x and y values can be indexed
-        self.FOOD_LOCATIONS = [[50,50]]
+        self.FOOD_LOCATIONS = [[300,300]]
         self.ANT_COLOR = BLACK
         self.MAP_COLOR = WHITE
         self.FOOD_COLOR = BLUE

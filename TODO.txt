@@ -1,0 +1,1 @@
+ToDo: The ants will now be able to tell when they have run into the food. Next u need to implement the pheromone equations and begin updating the maps.

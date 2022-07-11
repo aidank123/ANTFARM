@@ -88,7 +88,9 @@ while True:
         # Update the player sprite based on user keypresses
         #ant.update(pressed_keys)
         for a in ANTS:
+            #a.Pathing()
             a.random_pathing()
+            a.check_for_food()
 #             a.update(pressed_keys)
 #             a.add_location()
 
@@ -133,5 +135,6 @@ while True:
 #         print(pheremone_map.get_map())
             
     loop_count += 1
+    #time.sleep(.5)
 
     
