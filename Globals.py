@@ -9,10 +9,10 @@ BLUE = (0,0,255)
 class Globals:
     def __init__(self):
         self.NUMOFANTS = 100
-        self.WIDTH = 1100
-        self.HEIGHT = 800
-        self.HIVE_LOCATIONS = [[300,300]] #must be formatted in this way so the x and y values can be indexed
-        self.FOOD_LOCATIONS = [[300,300]]
+        self.WIDTH = 200
+        self.HEIGHT = 200
+        self.HIVE_LOCATIONS = [[100,100]] #must be formatted in this way so the x and y values can be indexed
+        self.FOOD_LOCATIONS = []
         self.ANT_COLOR = BLACK
         self.MAP_COLOR = WHITE
         self.FOOD_COLOR = BLUE

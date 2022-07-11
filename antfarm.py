@@ -42,7 +42,10 @@ pygame.init()
 screen = pygame.display.set_mode((MAP_WIDTH, MAP_HEIGHT))
 
 #initiate map object
-pheremone_map = pm.Pheremone_Map()
+p = pm.Pheremone_Map()
+
+# home_pheremone_map = p.get_home_pheremone_map()
+# food_pheremone_map = p.get_food_pheremone_map()
 
 #initiate food object
 food_locations = f.Food()
@@ -87,16 +90,27 @@ while True:
 #         pressed_keys = pygame.key.get_pressed()
         # Update the player sprite based on user keypresses
         #ant.update(pressed_keys)
+        
+        #ANT INSTRUCTIONS EACH LOOP
         for a in ANTS:
-            #a.Pathing()
-            a.random_pathing()
+            
+            a.Pathing()
+            #a.random_pathing()
             a.check_for_food()
+            
 #             a.update(pressed_keys)
 #             a.add_location()
 
         # Fill the screen with map color
         screen.fill(MAP_COLOR)
 
+        home_pheremone_map = p.get_home_pheremone_map()
+
+#         count = 0
+#         for y in range(MAP_HEIGHT - 1):
+#             for x in range(MAP_WIDTH - 1):
+#                 pygame.draw.rect(screen, (255,(255 - home_pheremone_map[x][y] * 100),255), pygame.Rect(x,y, 1, 1))
+            
         for a in ANTS:
             screen.blit(a.surf, a.rect)
             
@@ -109,7 +123,7 @@ while True:
             x = h[0]
             y = h[1]
             pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
-            
+                
     elif state == PAUSE:
         
          # Fill the screen with map color
@@ -127,7 +141,7 @@ while True:
             x = h[0]
             y = h[1]
             pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
-    
+        
     # Update the display
     pygame.display.flip()
     

@@ -1,1 +1,2 @@
-ToDo: The ants will now be able to tell when they have run into the food. Next u need to implement the pheromone equations and begin updating the maps.
+ToDo: Right now the ants are generally moving away from places explored by other ants by choosing randomly from the adjacent spaces which have the lowest home_pheremone_levels. This is the pheromone that is released as they try to search for food. They are getting stuck in local maximums, so I will add some factor that randomizes higher the more explored spaces they are near?
+

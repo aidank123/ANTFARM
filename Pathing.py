@@ -1,6 +1,6 @@
 import Globals as gl
 import Pheremone_Map as pm
-
+import random
 #IMPORT GLOBALS INTO EVERY CLASS
 
 #creating globals object and calling each method
@@ -11,8 +11,9 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 
-# p = pm.Pheremone_Map()
-# pheremone_map = p.get_map()
+p = pm.Pheremone_Map()
+food_pheremone_map = p.get_food_pheremone_map()
+home_pheremone_map = p.get_home_pheremone_map()
 
 class Pathing:
     
@@ -28,16 +29,29 @@ class Pathing:
         
         return surrounding_squares
     
+    #currently set up for ants to explore while no food signals have been found
     def local_search(self, ant_location):
         
+        low_val = 10
+        move_choices = []
+        
+        #check the 8 squares surrounding the ant location
         surrounding_squares = self.surrounding_squares(ant_location)
         
-        #check the 8 squares surrounding the ant location assuming no pheremones have been released yet
+        for s in surrounding_squares:
+            if(home_pheremone_map[s[0]][s[1]] <= low_val):
+                low_val = home_pheremone_map[s[0]][s[1]]
+                move_choices.append(s)
         
+        #choose a random move from all options that have been determined to be equally as good
+        rand = random.randint(0,len(move_choices) - 1)
         
+        return move_choices[rand]
     
-        
-        
-        
+    
+#     def go_home
+#         
+#         
+#         
         
     

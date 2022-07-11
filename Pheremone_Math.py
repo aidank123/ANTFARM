@@ -13,9 +13,19 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 
+
 class Pheremone_Math:
     
     def __init__(self):
+        self.pheremone_decay_rate = .25 #placeholder values
+        self.pheremone_amount = .1
         
+    def pheremone_decay(self):
+        
+        
+    def add_pheremone(self):
+        
+        
+    
         
     

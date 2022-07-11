@@ -12,29 +12,36 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 
+#updated while an ant is returning home with food so other ants know there is food there
+home_pheremone_map = np.zeros((MAP_WIDTH, MAP_HEIGHT))
+#updated while an ant is searching for food so it knows how to return
+food_pheremone_map = np.zeros((MAP_HEIGHT, MAP_WIDTH))
+        
 class Pheremone_Map:
-    def __init__(self):
-        #updated while an ant is returning home with food so other ants know there is food there
-        self.home_pheremone_map = np.zeros((MAP_HEIGHT, MAP_WIDTH))
-        #updated while an ant is searching for food so it knows how to return
-        self.food_pheremone_map = np.zeros((MAP_HEIGHT, MAP_WIDTH))
+    
+    def set_food_pheremone_map(self, new_map):
+        food_pheremone_map = new_map
         
     def get_food_pheremone_map(self):
-        return self.food_pheremone_map
+        return food_pheremone_map
     
+    def set_home_pheremone_map(self, new_map):
+        home_pheremone_map = new_map
+        
     def get_home_pheremone_map(self):
-        return self.home_pheremone_map
+        return home_pheremone_map
     
     def update_food_map(self, value, location):
         x = location[0]
         y = location[1]
         
-        self.food_pheremone_map[x][y] += value
+        food_pheremone_map[x][y] += value
+        self.set_food_pheremone_map(food_pheremone_map)
         
     def update_home_map(self, value, location):
         x = location[0]
         y = location[1]
         
-        self.home_pheremone_map[x][y] += value
-        
+        home_pheremone_map[x][y] += value
+        self.set_home_pheremone_map(home_pheremone_map)
         
