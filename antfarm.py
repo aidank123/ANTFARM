@@ -3,10 +3,12 @@ import pygame
 import random
 import time
 import Ant as a
-import Food as f
+#import Food as f
 import Pheremone_Map as pm
 import Globals as gl
+import Functions
 
+f = Functions.Functions()
 
 #IMPORT GLOBALS INTO EVERY CLASS
 
@@ -48,7 +50,7 @@ p = pm.Pheremone_Map()
 # food_pheremone_map = p.get_food_pheremone_map()
 
 #initiate food object
-food_locations = f.Food()
+#food_locations = f.Food()
 
 #initiate ants stored as a dictionary
 ants = {}
@@ -96,8 +98,8 @@ while True:
             
             a.Pathing()
             #a.random_pathing()
-            a.check_for_food()
-            a.check_for_home()
+            #a.check_for_food()
+            #a.check_for_home()
             a.update(pressed_keys)
 #             a.add_location()
 
@@ -106,13 +108,16 @@ while True:
 
 #         if (loop_count % 1000 == 0):
             
+
+        food_pheremone_map = p.get_food_pheremone_map()
+        
+        count = 0
+        for y in range(MAP_HEIGHT - 1):
+         for x in range(MAP_WIDTH - 1):
+            if (food_pheremone_map[x][y] > 0):
+                pygame.draw.rect(screen,(255,40,255), pygame.Rect(x,y, 1, 1))
+            
 #         home_pheremone_map = p.get_home_pheremone_map()
-#         food_pheremone_map = p.get_food_pheremone_map()
-#         
-#         count = 0
-#         for y in range(MAP_HEIGHT - 1):
-#          for x in range(MAP_WIDTH - 1):
-#             pygame.draw.rect(screen,(255,(255 - food_pheremone_map[x][y] * 2),255), pygame.Rect(x,y, 1, 1))
 # 
 # 
 #         count = 0

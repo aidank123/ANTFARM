@@ -99,16 +99,25 @@ class Ant(pygame.sprite.Sprite):
     
     def Pathing(self):
         
+        self.check_for_food()
+        
+        if(self.has_food == True):
+            self.update_food_map()
+            for p in pathing.surrounding_squares(self.ant_location()):
+
+                if p in HIVE_LOCATIONS:
+                    self.has_food = False
+                    
+                    
         #calling this method will return the chosen move, the ant will then move to that location
         chosen_move = pathing.local_search(self.ant_location(), self.has_food)
         
         self.rect.x = chosen_move[0]
         self.rect.y = chosen_move[1]
         
-        self.update_home_map()
+#         self.update_home_map()
         
-        if(self.has_food == True):
-            self.update_food_map()
+        
             #print("updating food map")
 #         if rand == 0:
 #             self.rect.move_ip(0, -3)
@@ -131,7 +140,7 @@ class Ant(pygame.sprite.Sprite):
                     
 
     #method that determines if an ant has encountered the hive in the 8 surrounding squares
-    def check_for_home(self):
+    def drop_off_food(self):
         
         if self.has_food == True:
             for p in pathing.surrounding_squares(self.ant_location()):

@@ -1,7 +1,13 @@
 ToDo: 
 
-- Get one ant to discover and follow the path to and from from the food source. 
 
--accurate pheromone models
+----Right now the ants are using the food and hive locations to get back and forth. They essentially take the shortest path home once they find food, only releasing pheromones on that path home. To find the food, they traverse the pheromone trail, selectively choosing the path that takes them closer to the food, assuming there are pheromones detected around them. 
 
--better local searching(more random)
+This is not an accurate model and will need to be updated to represent nature better using:
+
+	
+	-accurate pheromone models
+
+	-better local searching(more random) (try simulated annealing)
+
+	-

@@ -49,12 +49,13 @@ class Pheremone_Map:
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
                 
-                if(home_pheremone_map[x][y] >= .005):
-                    home_pheremone_map[x][y] -= .005
-                    self.set_home_pheremone_map(home_pheremone_map)
+#                 if(home_pheremone_map[x][y] >= .005):
+#                     home_pheremone_map[x][y] -= .005
+#                     self.set_home_pheremone_map(home_pheremone_map)
                 
-                if(food_pheremone_map[x][y] >= .005):
-                    food_pheremone_map[x][y] -= .005
+                if(food_pheremone_map[x][y] > 0):
+                    food_pheremone_map[x][y] -= .001
+                    if (food_pheremone_map[x][y] < 0):
+                        food_pheremone_map[x][y] = 0
                     self.set_food_pheremone_map(food_pheremone_map)
-        
         
