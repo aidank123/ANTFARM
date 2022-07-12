@@ -87,7 +87,7 @@ while True:
 #             food_locations.add_location([x,y])
               
         # Get all the keys currently pressed
-#         pressed_keys = pygame.key.get_pressed()
+        pressed_keys = pygame.key.get_pressed()
         # Update the player sprite based on user keypresses
         #ant.update(pressed_keys)
         
@@ -97,32 +97,41 @@ while True:
             a.Pathing()
             #a.random_pathing()
             a.check_for_food()
-            
-#             a.update(pressed_keys)
+            a.check_for_home()
+            a.update(pressed_keys)
 #             a.add_location()
 
         # Fill the screen with map color
         screen.fill(MAP_COLOR)
 
-        home_pheremone_map = p.get_home_pheremone_map()
-
+#         if (loop_count % 1000 == 0):
+            
+#         home_pheremone_map = p.get_home_pheremone_map()
+#         food_pheremone_map = p.get_food_pheremone_map()
+#         
+#         count = 0
+#         for y in range(MAP_HEIGHT - 1):
+#          for x in range(MAP_WIDTH - 1):
+#             pygame.draw.rect(screen,(255,(255 - food_pheremone_map[x][y] * 2),255), pygame.Rect(x,y, 1, 1))
+# 
+# 
 #         count = 0
 #         for y in range(MAP_HEIGHT - 1):
 #             for x in range(MAP_WIDTH - 1):
-#                 pygame.draw.rect(screen, (255,(255 - home_pheremone_map[x][y] * 100),255), pygame.Rect(x,y, 1, 1))
-            
+#                 pygame.draw.rect(screen,(255,(255 - food_pheremone_map[x][y] * 2),255), pygame.Rect(x,y, 1, 1))
+#                 
         for a in ANTS:
             screen.blit(a.surf, a.rect)
             
         for f in FOOD_LOCATIONS:
             x = f[0]
             y = f[1]
-            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 20, 20))
+            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 4, 4))
                                      
         for h in HIVE_LOCATIONS:
             x = h[0]
             y = h[1]
-            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
+            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 4, 4))
                 
     elif state == PAUSE:
         
@@ -142,12 +151,13 @@ while True:
             y = h[1]
             pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
         
+    #pheremone decay
+    p.pheremone_decay()
     # Update the display
     pygame.display.flip()
     
 #     if(loop_count == 100):
 #         print(pheremone_map.get_map())
-            
     loop_count += 1
     #time.sleep(.5)
 

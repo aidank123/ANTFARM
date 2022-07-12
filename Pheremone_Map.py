@@ -15,7 +15,7 @@ FOOD_LOCATIONS = g.get_food_locations()
 #updated while an ant is returning home with food so other ants know there is food there
 home_pheremone_map = np.zeros((MAP_WIDTH, MAP_HEIGHT))
 #updated while an ant is searching for food so it knows how to return
-food_pheremone_map = np.zeros((MAP_HEIGHT, MAP_WIDTH))
+food_pheremone_map = np.zeros((MAP_WIDTH, MAP_HEIGHT))
         
 class Pheremone_Map:
     
@@ -44,4 +44,17 @@ class Pheremone_Map:
         
         home_pheremone_map[x][y] += value
         self.set_home_pheremone_map(home_pheremone_map)
+        
+    def pheremone_decay(self):
+        for y in range(MAP_HEIGHT):
+            for x in range(MAP_WIDTH):
+                
+                if(home_pheremone_map[x][y] >= .005):
+                    home_pheremone_map[x][y] -= .005
+                    self.set_home_pheremone_map(home_pheremone_map)
+                
+                if(food_pheremone_map[x][y] >= .005):
+                    food_pheremone_map[x][y] -= .005
+                    self.set_food_pheremone_map(food_pheremone_map)
+        
         

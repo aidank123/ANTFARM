@@ -37,7 +37,7 @@ class Ant(pygame.sprite.Sprite):
     
     def __init__(self):
         super(Ant, self).__init__()
-        self.surf = pygame.Surface((4, 4))
+        self.surf = pygame.Surface((3, 3))
         self.surf.fill(ANT_COLOR)
         self.rect = self.surf.get_rect()
         self.has_food = False
@@ -67,13 +67,13 @@ class Ant(pygame.sprite.Sprite):
     
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:
-            self.rect.move_ip(0, -5)
+            self.rect.move_ip(0, -1)
         if pressed_keys[K_DOWN]:
-            self.rect.move_ip(0, 5)
+            self.rect.move_ip(0, 1)
         if pressed_keys[K_LEFT]:
-            self.rect.move_ip(-5, 0)
+            self.rect.move_ip(-1, 0)
         if pressed_keys[K_RIGHT]:
-            self.rect.move_ip(5, 0)
+            self.rect.move_ip(1, 0)
         
         self.stay_on_screen()
             
@@ -100,12 +100,16 @@ class Ant(pygame.sprite.Sprite):
     def Pathing(self):
         
         #calling this method will return the chosen move, the ant will then move to that location
-        chosen_move = pathing.local_search(self.ant_location())
+        chosen_move = pathing.local_search(self.ant_location(), self.has_food)
         
         self.rect.x = chosen_move[0]
         self.rect.y = chosen_move[1]
         
         self.update_home_map()
+        
+        if(self.has_food == True):
+            self.update_food_map()
+            #print("updating food map")
 #         if rand == 0:
 #             self.rect.move_ip(0, -3)
 #         if rand == 1:
@@ -119,21 +123,22 @@ class Ant(pygame.sprite.Sprite):
     #method that determines if an ant has encountered food in the 8 surrounding squares   
     def check_for_food(self):
         
-        for p in pathing.surrounding_squares(self.ant_location()):
+        if(self.has_food == False):
+            for p in pathing.surrounding_squares(self.ant_location()):
 
-            if p in FOOD_LOCATIONS:
-                return True
-        
-        return False
-    
+                if p in FOOD_LOCATIONS:
+                    self.has_food = True
+                    
+
     #method that determines if an ant has encountered the hive in the 8 surrounding squares
     def check_for_home(self):
-        for p in pathing.surrounding_squares(self.ant_location()):
+        
+        if self.has_food == True:
+            for p in pathing.surrounding_squares(self.ant_location()):
 
-            if p in HIVE_LOCATIONS:
-                return True
-            
-        return False
+                if p in HIVE_LOCATIONS:
+                    self.has_food = False
+
     
     def update_food_map(self):
         p.update_food_map(.1,self.ant_location())

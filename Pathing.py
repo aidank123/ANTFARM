@@ -30,25 +30,53 @@ class Pathing:
         return surrounding_squares
     
     #currently set up for ants to explore while no food signals have been found
-    def local_search(self, ant_location):
+    def local_search(self, ant_location, has_food):
         
         low_val = 10
+        high_val = 0
         move_choices = []
-        
         #check the 8 squares surrounding the ant location
         surrounding_squares = self.surrounding_squares(ant_location)
         
-        for s in surrounding_squares:
-            if(home_pheremone_map[s[0]][s[1]] <= low_val):
-                low_val = home_pheremone_map[s[0]][s[1]]
-                move_choices.append(s)
+        if (has_food == False):
+           # print("looking for food")
+            for s in surrounding_squares:
+                if (food_pheremone_map[s[0]][s[1]] > high_val):
+                    high_val = food_pheremone_map[s[0]][s[1]]
+                    move_choices.append(s)
+#             for x in surrounding_squares:
+#                 food_pheremone_map[s[0]][s[1]] == high_val
+#                 move_choices.append(x)
+            
+            if (len(move_choices) == 0):
+                #print("no scent")
+                for s in surrounding_squares:
+                    if(home_pheremone_map[s[0]][s[1]] < low_val):
+                        low_val = home_pheremone_map[s[0]][s[1]]
+                
+                for x in surrounding_squares:
+                    home_pheremone_map[s[0]][s[1]] == low_val
+                    move_choices.append(x)
+                
+            #choose a random move from all options that have been determined to be equally as good
+            rand = random.randint(0,len(move_choices) - 1)
         
-        #choose a random move from all options that have been determined to be equally as good
-        rand = random.randint(0,len(move_choices) - 1)
-        
+        else:
+            
+            #print("found food")
+            for s in surrounding_squares:
+                if(home_pheremone_map[s[0]][s[1]] > high_val):
+                    high_val = home_pheremone_map[s[0]][s[1]]
+            
+            for x in surrounding_squares:
+                home_pheremone_map[s[0]][s[1]] == high_val
+                move_choices.append(x)    
+            #choose a random move from all options that have been determined to be equally as good
+            rand = random.randint(0,len(move_choices) - 1)
+                
         return move_choices[rand]
     
-    
+
 #     def go_home
 #         
 #         
