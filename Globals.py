@@ -8,18 +8,21 @@ BLUE = (0,0,255)
 
 class Globals:
     def __init__(self):
-        self.NUMOFANTS = 1
+        self.NUMOFANTS = 100
         self.WIDTH = 200
         self.HEIGHT = 200
         self.HIVE_LOCATIONS = [[50,50]] #must be formatted in this way so the x and y values can be indexed
+        self.HIVE_SIZE = 4
         self.FOOD_LOCATIONS = [[100,100]]
+        self.FOOD_SIZE = 4
         self.ANT_COLOR = BLACK
         self.MAP_COLOR = WHITE
         self.FOOD_COLOR = BLUE
         self.HIVE_COLOR = GREEN
         self.PHEREMONE_DECAY_RATE = .01 #rate of pheromone decay
         self.PHEREMONE_DEPOSIT_RATE = .05 #rate of pheromone deposit
-        self.ANT_SMELL_RADIUS = 1 #how many squares away can an ant smell
+        self.ANT_SMELL_RADIUS = 10 #how many squares away can an ant smell
+        
         
     def get_number_of_ants(self):
         return self.NUMOFANTS
@@ -57,4 +60,9 @@ class Globals:
     def get_ant_smell_radius(self):
         return self.ANT_SMELL_RADIUS
     
+    def get_hive_size(self):
+        return self.HIVE_SIZE
     
+    def get_food_size(self):
+        return self.FOOD_SIZE
+        

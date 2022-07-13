@@ -19,19 +19,25 @@ class Functions:
         distance = 0
         distance = math.sqrt((abs(curr_x - dest_x) ** 2) + (abs(curr_y - dest_y) ** 2))
         return distance
-        
     
+        
+    def adjacent_squares(self, ant_location): #all squares directly next to the ant
+        x = ant_location[0]
+        y = ant_location[1]
+        
+        adjacent_squares = [[x-1,y-1],[x,y-1],[x+1,y-1],[x+1,y],[x+1,y+1],[x,y+1],[x-1,y+1],[x-1,y]]
+        return adjacent_squares
+        
     def surrounding_squares(self, ant_location): #all squares within the ants smelling distance
         x = ant_location[0]
         y = ant_location[1]
         
+        surrounding_squares = []
         
-        surrounding_squares = [[x-1,y-1],[x,y-1],[x+1,y-1],[x+1,y],[x+1,y+1],[x,y+1],[x-1,y+1],[x-1,y]]
-        
-#         for a in range(ANT_SMELL_RADIUS): 
-#             for b in range(ANT_SMELL_RADIUS):
-#             surrounding_squares.add(([x-a,y-a],[x,y-a],[x+a,y-a],[x+a,y],[x+a,y+a],[x,y+a],[x-a,y+a],[x-a,y]))
-            
-            
+        for a in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS): 
+            for b in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS):
+                
+                surrounding_squares.append([x + b,y + a])
+
             
         return surrounding_squares

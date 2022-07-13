@@ -23,7 +23,8 @@ ANT_COLOR = g.get_ant_color()
 HIVE_COLOR = g.get_hive_color()
 MAP_COLOR = g.get_map_color()
 FOOD_COLOR = g.get_food_color()
-
+HIVE_SIZE = g.get_hive_size()
+FOOD_SIZE = g.get_food_size()
 
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
@@ -109,7 +110,7 @@ while True:
 # VIEW ANT SMELL RADIUS
 #         for l in (fun.surrounding_squares(a.ant_location())):
 #             pygame.draw.rect(screen,(255,40,255), pygame.Rect(l[0],l[1], 1, 1)) #shows the ant smell radius
-#         if (loop_count % 1000 == 0):
+
             
 # VIEW FOOD PHEREMONE TRAILS
 #         food_pheremone_map = p.get_food_pheremone_map()
@@ -136,12 +137,12 @@ while True:
         for f in FOOD_LOCATIONS:
             x = f[0]
             y = f[1]
-            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 4, 4))
+            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, FOOD_SIZE, FOOD_SIZE))
                                      
         for h in HIVE_LOCATIONS:
             x = h[0]
             y = h[1]
-            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 4, 4))
+            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, HIVE_SIZE, HIVE_SIZE))
                 
     elif state == PAUSE:
         
@@ -154,12 +155,12 @@ while True:
         for f in FOOD_LOCATIONS:
             x = f[0]
             y = f[1]
-            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, 20, 20))
-            
+            pygame.draw.rect(screen, FOOD_COLOR, pygame.Rect(x,y, FOOD_SIZE, FOOD_SIZE))
+                                     
         for h in HIVE_LOCATIONS:
             x = h[0]
             y = h[1]
-            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, 20, 20))
+            pygame.draw.rect(screen, HIVE_COLOR, pygame.Rect(x,y, HIVE_SIZE, HIVE_SIZE))
         
     #pheremone decay
     p.pheremone_decay()

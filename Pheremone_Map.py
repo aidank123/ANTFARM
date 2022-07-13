@@ -57,6 +57,8 @@ class Pheremone_Map:
                     #food_pheremone_map[x][y] -= PHEREMONE_DECAY_RATE
                     if (home_pheremone_map[x][y] < 0): #if less than 0 set to 0
                         home_pheremone_map[x][y] = 0
+#                     if (home_pheremone_map[x][y] > 1): #if more than 1, set to 1
+#                         home_pheremone_map[x][y] = 1
                     self.set_home_pheremone_map(home_pheremone_map)
 
                 
@@ -65,5 +67,7 @@ class Pheremone_Map:
                     #food_pheremone_map[x][y] -= PHEREMONE_DECAY_RATE
                     if (food_pheremone_map[x][y] < 0): #if less than 0 set to 0
                         food_pheremone_map[x][y] = 0
+#                     if (food_pheremone_map[x][y] > 1): #if more than 1, set to 1
+#                         food_pheremone_map[x][y] = 1
                     self.set_food_pheremone_map(food_pheremone_map)
         

@@ -1,7 +1,7 @@
 ToDo: 
 
 
-----Right now the ants are using the food and hive locations to get back and forth. They essentially take the shortest path home once they find food, only releasing pheromones on that path home. To find the food, they traverse the pheromone trail, selectively choosing the path that takes them closer to the food, assuming there are pheromones detected around them. 
+----Right now the ants are super prone to getting stuck. Ants that have food get stuck trying to get home using overly simple, non-randomized pathing. Ants that are looking for food will follow those ants because they are dropping food pheromones. They all group together in this manner. 
 
 This is not an accurate model and will need to be updated to represent nature better using:
 
@@ -11,10 +11,3 @@ This is not an accurate model and will need to be updated to represent nature be
 	-better local searching(more random) (try simulated annealing)
 		--ants are so prone to getting stuck in local maximums right now
 
-
---fix ant smelling radius (in functions class)
-
-	-ants shouldn't jump to chosen square but move there one step at a time
-	-intermediate Vals are missing
-
---

@@ -37,6 +37,7 @@ class Pathing:
         #check the squares surrounding the ant location
         surrounding_squares = f.surrounding_squares(ant_location)
         
+        adjacent_squares = f.adjacent_squares(ant_location)
         
         #IF THE DOESN'T HAVE FOOD:
         if (has_food == False):
@@ -63,10 +64,11 @@ class Pathing:
                         
                 #choose a random move from all options that have been determined to be equally as good
                 #rand = random.randint(0,len(move_choices) - 1)
+                move_choice = self.move_towards_choice(ant_location, move_choice)
                 return move_choice
             else:    
-                rand = random.randint(0,len(surrounding_squares) - 1)
-                return surrounding_squares[rand]
+                rand = random.randint(0,len(adjacent_squares) - 1)
+                return adjacent_squares[rand]
             
         elif (has_food == True):
 
@@ -80,23 +82,44 @@ class Pathing:
                 hive_loc = HIVE_LOCATIONS[0]
                 hive_x = hive_loc[0]
                 hive_y = hive_loc[1]
-                print(len(move_choices))
+                #print(len(move_choices))
                 for m in move_choices:
                     if(f.distance_squared(m[0],m[1],hive_x,hive_y) < low_val):
-                        #low_val = f.distance_squared(m[0],m[1],food_x,food_y)
                         move_choice = m
                 #print(home_pheremone_map[move_choice[0]][move_choice[1]])        
                 #choose a random move from all options that have been determined to be equally as good
                 #rand = random.randint(0,len(move_choices) - 1)
-
+                
+                move_choice = self.move_towards_choice(ant_location, move_choice)
                 return move_choice
             else:
 
-                rand = random.randint(0,len(surrounding_squares) - 1)
-                return surrounding_squares[rand]    
-    
+                rand = random.randint(0,len(adjacent_squares) - 1)
+                return adjacent_squares[rand]    
 
     
+    
+        
+    def move_towards_choice(self, ant_location, move): #this method will choose the adjacent square which moves the ant closer to its optimal choice, decided in local_search
+            
+            low_val = 100000
+            move_choice = []
+            move_choices = []
+            adjacent_squares = f.adjacent_squares(ant_location)
+            
+            for a in adjacent_squares:
+                if(f.distance_squared(a[0],a[1],move[0],move[1]) < low_val):
+                        low_val = f.distance_squared(a[0],a[1],move[0],move[1])
+            
+            for b in adjacent_squares:
+                if(f.distance_squared(b[0],b[1],move[0],move[1]) == low_val):
+                    move_choices.append(b)
+            
+            rand = random.randint(0,len(move_choices) - 1)
+            move_choice = move_choices[rand]
+            return move_choice
+        
+    #def simulated_annealing(self, ant_location, has_food): 
 #     def go_home
 #         
 #         
