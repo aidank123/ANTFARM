@@ -8,7 +8,7 @@ import Pheremone_Map as pm
 import Globals as gl
 import Functions
 
-f = Functions.Functions()
+fun = Functions.Functions()
 
 #IMPORT GLOBALS INTO EVERY CLASS
 
@@ -106,24 +106,29 @@ while True:
         # Fill the screen with map color
         screen.fill(MAP_COLOR)
 
+# VIEW ANT SMELL RADIUS
+#         for l in (fun.surrounding_squares(a.ant_location())):
+#             pygame.draw.rect(screen,(255,40,255), pygame.Rect(l[0],l[1], 1, 1)) #shows the ant smell radius
 #         if (loop_count % 1000 == 0):
             
-
-        food_pheremone_map = p.get_food_pheremone_map()
+# VIEW FOOD PHEREMONE TRAILS
+#         food_pheremone_map = p.get_food_pheremone_map()
+#         
+#         count = 0
+#         for y in range(MAP_HEIGHT - 1):
+#          for x in range(MAP_WIDTH - 1):
+#             if (food_pheremone_map[x][y] > 0):
+#                 pygame.draw.rect(screen,(255,40,255), pygame.Rect(x,y, 1, 1))
         
-        count = 0
-        for y in range(MAP_HEIGHT - 1):
-         for x in range(MAP_WIDTH - 1):
-            if (food_pheremone_map[x][y] > 0):
-                pygame.draw.rect(screen,(255,40,255), pygame.Rect(x,y, 1, 1))
-            
+#VIEW HOME PHEREMONE TRAILS           
 #         home_pheremone_map = p.get_home_pheremone_map()
 # 
 # 
 #         count = 0
 #         for y in range(MAP_HEIGHT - 1):
 #             for x in range(MAP_WIDTH - 1):
-#                 pygame.draw.rect(screen,(255,(255 - food_pheremone_map[x][y] * 2),255), pygame.Rect(x,y, 1, 1))
+#                 if (home_pheremone_map[x][y] > 0):
+#                     pygame.draw.rect(screen,(255,10,255), pygame.Rect(x,y, 1, 1))
 #                 
         for a in ANTS:
             screen.blit(a.surf, a.rect)

@@ -9,5 +9,12 @@ This is not an accurate model and will need to be updated to represent nature be
 	-accurate pheromone models
 
 	-better local searching(more random) (try simulated annealing)
+		--ants are so prone to getting stuck in local maximums right now
 
-	-
+
+--fix ant smelling radius (in functions class)
+
+	-ants shouldn't jump to chosen square but move there one step at a time
+	-intermediate Vals are missing
+
+--

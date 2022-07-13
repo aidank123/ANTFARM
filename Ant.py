@@ -5,7 +5,7 @@ import random
 import Pheremone_Map as pm
 import Globals as gl
 import Pathing as p
-
+import Functions
 #IMPORT GLOBALS INTO EVERY CLASS
 
 #creating globals object and calling each method
@@ -18,7 +18,7 @@ FOOD_LOCATIONS = g.get_food_locations()
 ANT_COLOR = g.get_ant_color()
 
 pathing = p.Pathing()
-
+f = Functions.Functions()
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
 from pygame.locals import (
@@ -98,12 +98,15 @@ class Ant(pygame.sprite.Sprite):
         return [x,y]
     
     def Pathing(self):
-        
+             
         self.check_for_food()
         
-        if(self.has_food == True):
+        if (self.has_food == False):
+            self.update_home_map()
+            
+        elif(self.has_food == True):
             self.update_food_map()
-            for p in pathing.surrounding_squares(self.ant_location()):
+            for p in f.surrounding_squares(self.ant_location()):
 
                 if p in HIVE_LOCATIONS:
                     self.has_food = False
@@ -112,28 +115,18 @@ class Ant(pygame.sprite.Sprite):
         #calling this method will return the chosen move, the ant will then move to that location
         chosen_move = pathing.local_search(self.ant_location(), self.has_food)
         
+        #setting x and y to be the coordinates of the chosen move
         self.rect.x = chosen_move[0]
         self.rect.y = chosen_move[1]
+
         
-#         self.update_home_map()
-        
-        
-            #print("updating food map")
-#         if rand == 0:
-#             self.rect.move_ip(0, -3)
-#         if rand == 1:
-#             self.rect.move_ip(0, 3)
-#         if rand == 2:
-#             self.rect.move_ip(-3, 0)
-#         if rand == 3:
-#             self.rect.move_ip(3, 0)
         self.stay_on_screen()
     
     #method that determines if an ant has encountered food in the 8 surrounding squares   
     def check_for_food(self):
         
         if(self.has_food == False):
-            for p in pathing.surrounding_squares(self.ant_location()):
+            for p in f.surrounding_squares(self.ant_location()):
 
                 if p in FOOD_LOCATIONS:
                     self.has_food = True
@@ -143,14 +136,14 @@ class Ant(pygame.sprite.Sprite):
     def drop_off_food(self):
         
         if self.has_food == True:
-            for p in pathing.surrounding_squares(self.ant_location()):
+            for p in f.surrounding_squares(self.ant_location()):
 
                 if p in HIVE_LOCATIONS:
                     self.has_food = False
 
     
     def update_food_map(self):
-        p.update_food_map(.1,self.ant_location())
+        p.update_food_map(self.ant_location())
         
     def update_home_map(self):
-        p.update_home_map(.1,self.ant_location())
+        p.update_home_map(self.ant_location())
