@@ -3,11 +3,11 @@ ToDo:
 
 ----Right now the ants are super prone to getting stuck. Ants that have food get stuck trying to get home using overly simple, non-randomized pathing. Ants that are looking for food will follow those ants because they are dropping food pheromones. They all group together in this manner. 
 
-This is not an accurate model and will need to be updated to represent nature better using:
 
-	
+--I have given them the information of where the food is and where the hive is in order to have them choose better options. This is not really the model I had in mind and I will make improvements to these factors:
+
 	-accurate pheromone models
 
-	-better local searching(more random) (try simulated annealing)
+	-better local searching(more random) (try simulated annealing?)
 		--ants are so prone to getting stuck in local maximums right now
 

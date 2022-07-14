@@ -98,11 +98,7 @@ while True:
         for a in ANTS:
             
             a.Pathing()
-            #a.random_pathing()
-            #a.check_for_food()
-            #a.check_for_home()
             a.update(pressed_keys)
-#             a.add_location()
 
         # Fill the screen with map color
         screen.fill(MAP_COLOR)
@@ -129,7 +125,7 @@ while True:
 #         for y in range(MAP_HEIGHT - 1):
 #             for x in range(MAP_WIDTH - 1):
 #                 if (home_pheremone_map[x][y] > 0):
-#                     pygame.draw.rect(screen,(255,10,255), pygame.Rect(x,y, 1, 1))
+#                     pygame.draw.rect(screen,(255,255-(home_pheremone_map[x][y] * 10),255), pygame.Rect(x,y, 1, 1))
 #                 
         for a in ANTS:
             screen.blit(a.surf, a.rect)

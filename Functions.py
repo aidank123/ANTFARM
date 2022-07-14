@@ -37,7 +37,10 @@ class Functions:
         for a in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS): 
             for b in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS):
                 
-                surrounding_squares.append([x + b,y + a])
+                
+                if ((x + b) >= 0 and (x + b) < MAP_WIDTH): #error handling for indexing outside the map
+                    if ((y + a) >= 0 and (y + a) < MAP_HEIGHT):
+                        surrounding_squares.append([x + b,y + a])
 
             
         return surrounding_squares

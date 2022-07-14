@@ -56,14 +56,28 @@ class Pathing:
                 food_x = food_loc[0]
                 food_y = food_loc[1]
                 
-
                 for m in move_choices:
                     if(f.distance_squared(m[0],m[1],food_x,food_y) < low_val):
-                        #low_val = f.distance_squared(m[0],m[1],food_x,food_y)
+                        low_val = f.distance_squared(m[0],m[1],food_x,food_y)
                         move_choice = m
                         
-                #choose a random move from all options that have been determined to be equally as good
-                #rand = random.randint(0,len(move_choices) - 1)
+
+#TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR FOOD
+#                 for s in surrounding_squares:
+#                     if(food_pheremone_map[s[0]][s[1]] > high_val):
+#                         high_val = food_pheremone_map[s[0]][s[1]]
+#                 
+#                 for x in surrounding_squares:
+#                     if(food_pheremone_map[x[0]][x[1]] == high_val):
+#                         move_choices.append(x)
+#                         
+#                 #choose a random move from all options that have been determined to be equally as good
+#                 rand = random.randint(0,len(move_choices) - 1)
+#                 move_choice = move_choices[rand]
+                
+                
+                
+                
                 move_choice = self.move_towards_choice(ant_location, move_choice)
                 return move_choice
             else:    
@@ -82,13 +96,27 @@ class Pathing:
                 hive_loc = HIVE_LOCATIONS[0]
                 hive_x = hive_loc[0]
                 hive_y = hive_loc[1]
-                #print(len(move_choices))
+
                 for m in move_choices:
                     if(f.distance_squared(m[0],m[1],hive_x,hive_y) < low_val):
+                        low_val = f.distance_squared(m[0],m[1],hive_x,hive_y)
                         move_choice = m
-                #print(home_pheremone_map[move_choice[0]][move_choice[1]])        
-                #choose a random move from all options that have been determined to be equally as good
-                #rand = random.randint(0,len(move_choices) - 1)
+
+#TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR HOME
+#                 for s in surrounding_squares:
+#                     if(home_pheremone_map[s[0]][s[1]] > high_val):
+#                         high_val = home_pheremone_map[s[0]][s[1]]
+#                 
+#                 for x in surrounding_squares:
+#                     if(home_pheremone_map[x[0]][x[1]] == high_val):
+#                         move_choices.append(x)
+#                         
+#                 #choose a random move from all options that have been determined to be equally as good
+#                 rand = random.randint(0,len(move_choices) - 1)
+#                 move_choice = move_choices[rand]
+                
+                
+                
                 
                 move_choice = self.move_towards_choice(ant_location, move_choice)
                 return move_choice
@@ -97,8 +125,7 @@ class Pathing:
                 rand = random.randint(0,len(adjacent_squares) - 1)
                 return adjacent_squares[rand]    
 
-    
-    
+
         
     def move_towards_choice(self, ant_location, move): #this method will choose the adjacent square which moves the ant closer to its optimal choice, decided in local_search
             

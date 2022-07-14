@@ -21,6 +21,7 @@ pathing = p.Pathing()
 f = Functions.Functions()
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
+
 from pygame.locals import (
     K_UP,
     K_DOWN,
@@ -78,20 +79,19 @@ class Ant(pygame.sprite.Sprite):
         self.stay_on_screen()
             
 
-    def random_pathing(self):
-        rand = random.randint(0,3)
-        if rand == 0:
-            self.rect.move_ip(0, -1)
-        if rand == 1:
-            self.rect.move_ip(0, 1)
-        if rand == 2:
-            self.rect.move_ip(-1, 0)
-        if rand == 3:
-            self.rect.move_ip(1, 0)
+#     def random_pathing(self):
+#         rand = random.randint(0,3)
+#         if rand == 0:
+#             self.rect.move_ip(0, -1)
+#         if rand == 1:
+#             self.rect.move_ip(0, 1)
+#         if rand == 2:
+#             self.rect.move_ip(-1, 0)
+#         if rand == 3:
+#             self.rect.move_ip(1, 0)
         
-    
-        self.stay_on_screen()
-        
+#         self.stay_on_screen()
+#         
     def ant_location(self):
         x = self.rect.x
         y = self.rect.y
@@ -126,7 +126,6 @@ class Ant(pygame.sprite.Sprite):
 
                 if p in FOOD_LOCATIONS:
                     self.has_food = True
-                    
 
     #method that determines if an ant has encountered the hive in the 8 surrounding squares
     def drop_off_food(self):
