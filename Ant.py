@@ -6,6 +6,7 @@ import Pheremone_Map as pm
 import Globals as gl
 import Pathing as p
 import Functions
+import Variables
 #IMPORT GLOBALS INTO EVERY CLASS
 
 #creating globals object and calling each method
@@ -16,9 +17,13 @@ MAP_WIDTH = g.get_width()
 HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 ANT_COLOR = g.get_ant_color()
+FOOD_PHEREMONE_VALUE = g.get_food_pheremone_max()
+HOME_PHEREMONE_VALUE = g.get_home_pheremone_max()
+PHEREMONE_DEPOSIT_RATE = g.get_pheremone_deposit_rate()
 
 pathing = p.Pathing()
 f = Functions.Functions()
+v = Variables.Variables()
 # Import pygame.locals for easier access to key coordinates
 # Updated to conform to flake8 and black standards
 
@@ -42,6 +47,8 @@ class Ant(pygame.sprite.Sprite):
         self.surf.fill(ANT_COLOR)
         self.rect = self.surf.get_rect()
         self.has_food = False
+        self.home_pheremone_value = HOME_PHEREMONE_VALUE
+        self.food_pheremone_value = FOOD_PHEREMONE_VALUE
         
         #initiating ants to hive location. Right now its better to stick with the one location
         for h in HIVE_LOCATIONS:
@@ -49,10 +56,6 @@ class Ant(pygame.sprite.Sprite):
             y = h[1]
             self.rect.x = x
             self.rect.y = y
-    
-    #add location to pheremone map
-    def add_location(self):
-        p.add_location([self.rect.x, self.rect.y])
         
     # Keep player on the screen
     def stay_on_screen(self):
@@ -109,7 +112,7 @@ class Ant(pygame.sprite.Sprite):
             self.drop_off_food()             
                     
         #calling this method will return the chosen move, the ant will then move to that location
-        chosen_move = pathing.local_search(self.ant_location(), self.has_food)
+        chosen_move = pathing.local_search_2(self.ant_location(), self.has_food)
         
         #setting x and y to be the coordinates of the chosen move
         self.rect.x = chosen_move[0]
@@ -135,10 +138,26 @@ class Ant(pygame.sprite.Sprite):
 
                 if p in HIVE_LOCATIONS:
                     self.has_food = False
+                    self.update_food_collected()
 
-    
     def update_food_map(self):
-        p.update_food_map(self.ant_location())
+        #only update if the ant has not run out of this pheremone
+        if(self.food_pheremone_value > 0):
+            p.update_food_map(self.ant_location())
+            self.update_food_pheremone_amount()
         
     def update_home_map(self):
-        p.update_home_map(self.ant_location())
+        #only update if the ant has not run out of this pheremone
+        if(self.home_pheremone_value > 0):
+            p.update_home_map(self.ant_location())
+            self.update_home_pheremone_amount()
+ 
+    def update_food_collected(self):
+        v.update_total_food_collected()
+        
+    #methods that are called to reduce the amount of pheremone an ant is carrying by the pheremone deposit rate  
+    def update_food_pheremone_amount(self):
+        self.food_pheremone_value -= PHEREMONE_DEPOSIT_RATE
+        
+    def update_home_pheremone_amount(self):
+        self.home_pheremone_value -= PHEREMONE_DEPOSIT_RATE

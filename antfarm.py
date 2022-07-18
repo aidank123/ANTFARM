@@ -7,9 +7,11 @@ import Ant as a
 import Pheremone_Map as pm
 import Globals as gl
 import Functions
+import numpy as np
+import Variables
 
 fun = Functions.Functions()
-
+v = Variables.Variables()
 #IMPORT GLOBALS INTO EVERY CLASS
 
 #creating globals object and calling each method
@@ -46,12 +48,6 @@ screen = pygame.display.set_mode((MAP_WIDTH, MAP_HEIGHT))
 
 #initiate map object
 p = pm.Pheremone_Map()
-
-# home_pheremone_map = p.get_home_pheremone_map()
-# food_pheremone_map = p.get_food_pheremone_map()
-
-#initiate food object
-#food_locations = f.Food()
 
 #initiate ants stored as a dictionary
 ants = {}
@@ -91,9 +87,7 @@ while True:
               
         # Get all the keys currently pressed
         pressed_keys = pygame.key.get_pressed()
-        # Update the player sprite based on user keypresses
-        #ant.update(pressed_keys)
-        
+
         #ANT INSTRUCTIONS EACH LOOP
         for a in ANTS:
             
@@ -101,9 +95,10 @@ while True:
             a.update(pressed_keys)
 
         # Fill the screen with map color
+        
         screen.fill(MAP_COLOR)
 
-# VIEW ANT SMELL RADIUS
+#VIEW ANT SMELL RADIUS
 #         for l in (fun.surrounding_squares(a.ant_location())):
 #             pygame.draw.rect(screen,(255,40,255), pygame.Rect(l[0],l[1], 1, 1)) #shows the ant smell radius
 
@@ -126,7 +121,22 @@ while True:
 #             for x in range(MAP_WIDTH - 1):
 #                 if (home_pheremone_map[x][y] > 0):
 #                     pygame.draw.rect(screen,(255,255-(home_pheremone_map[x][y] * 10),255), pygame.Rect(x,y, 1, 1))
-#                 
+
+#         food_pheremone_map = p.get_food_pheremone_map()
+        
+#VIEW THE MAX AND MIN VALUES OF THE PHEREMONE MAPS
+
+#         food_map = p.get_food_pheremone_map()
+#         print("Food map max: " + str(np.max(food_map)))
+#         print("Food map min: " + str(np.min(food_map)))
+#         home_map = p.get_home_pheremone_map()
+#         print("Home map max: " + str(np.max(home_map)))
+#         print("Home map min: " + str(np.min(home_map)))
+        
+        
+#VIEW THE AMOUNT OF TOTAL FOOD DEPOSITED
+#         print(v.get_total_food_collected())
+
         for a in ANTS:
             screen.blit(a.surf, a.rect)
             
@@ -162,9 +172,6 @@ while True:
     p.pheremone_decay()
     # Update the display
     pygame.display.flip()
-    
-#     if(loop_count == 100):
-#         print(pheremone_map.get_map())
     loop_count += 1
     #time.sleep(.5)
 

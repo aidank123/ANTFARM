@@ -12,8 +12,10 @@ HIVE_LOCATIONS = g.get_hive_locations()
 FOOD_LOCATIONS = g.get_food_locations()
 ANT_SMELL_RADIUS = g.get_ant_smell_radius()
 
+total_food_collected = 0
+
 class Functions:
-    
+        
     def distance_squared(self, curr_x, curr_y, dest_x, dest_y):
         
         distance = 0
@@ -44,3 +46,4 @@ class Functions:
 
             
         return surrounding_squares
+    

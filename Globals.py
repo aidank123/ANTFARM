@@ -8,20 +8,27 @@ BLUE = (0,0,255)
 
 class Globals:
     def __init__(self):
-        self.NUMOFANTS = 100
-        self.WIDTH = 200
-        self.HEIGHT = 200
+        self.NUMOFANTS = 100 #total number of ants
+        self.WIDTH = 200 #width of the screen
+        self.HEIGHT = 200 #height of the screen
         self.HIVE_LOCATIONS = [[50,50]] #must be formatted in this way so the x and y values can be indexed
-        self.HIVE_SIZE = 4
+        self.HIVE_SIZE = 4 #how large to draw the hive
         self.FOOD_LOCATIONS = [[100,100]]
-        self.FOOD_SIZE = 4
-        self.ANT_COLOR = BLACK
+        self.FOOD_SIZE = 4 #how large to draw the food
+        self.ANT_COLOR = BLACK 
         self.MAP_COLOR = WHITE
         self.FOOD_COLOR = BLUE
         self.HIVE_COLOR = GREEN
         self.PHEREMONE_DECAY_RATE = .01 #rate of pheromone decay
         self.PHEREMONE_DEPOSIT_RATE = .05 #rate of pheromone deposit
-        self.ANT_SMELL_RADIUS = 10 #how many squares away can an ant smell
+        self.ANT_SMELL_RADIUS = 10 #how many squares away can an ant smells
+        
+        #increasing the range of these values will increasing the randomness by which an ant operates
+        self.RANDMIN = 0 #min value that a pheromone value can be multiplied by when randomizing ant decisions
+        self.RANDMAX = 10 #max value that a pheromone value can be multiplied by when randomizing ant decisions
+        
+        self.FOOD_PHEREMONE_MAX = 10 #how many units of food pheremone an ant starts with
+        self.HOME_PHEREMONE_MAX = 10 #how many units of home pheremone an ant starts with
         
         
     def get_number_of_ants(self):
@@ -66,3 +73,16 @@ class Globals:
     def get_food_size(self):
         return self.FOOD_SIZE
         
+    def get_rand_min(self):
+        return self.RANDMIN
+    
+    def get_rand_max(self):
+        return self.RANDMAX
+    
+    def get_food_pheremone_max(self):
+        return self.FOOD_PHEREMONE_MAX
+    
+    def get_home_pheremone_max(self):
+        return self.HOME_PHEREMONE_MAX
+    
+    
