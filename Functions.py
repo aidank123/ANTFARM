@@ -36,14 +36,13 @@ class Functions:
         
         surrounding_squares = []
         
-        for a in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS): 
-            for b in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS):
+        for a in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS + 1): #plus one added to solve the issue of ants going up and left
+            for b in range((0 - ANT_SMELL_RADIUS),ANT_SMELL_RADIUS + 1):
                 
                 
                 if ((x + b) >= 0 and (x + b) < MAP_WIDTH): #error handling for indexing outside the map
                     if ((y + a) >= 0 and (y + a) < MAP_HEIGHT):
                         surrounding_squares.append([x + b,y + a])
 
-            
         return surrounding_squares
     

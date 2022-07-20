@@ -115,15 +115,13 @@ while True:
 #VIEW HOME PHEREMONE TRAILS           
 #         home_pheremone_map = p.get_home_pheremone_map()
 # 
-# 
 #         count = 0
 #         for y in range(MAP_HEIGHT - 1):
 #             for x in range(MAP_WIDTH - 1):
 #                 if (home_pheremone_map[x][y] > 0):
-#                     pygame.draw.rect(screen,(255,255-(home_pheremone_map[x][y] * 10),255), pygame.Rect(x,y, 1, 1))
+#                     pygame.draw.rect(screen,(10,255,255), pygame.Rect(x,y, 1, 1))       #255-(home_pheremone_map[x][y] * 10)  
 
-#         food_pheremone_map = p.get_food_pheremone_map()
-        
+
 #VIEW THE MAX AND MIN VALUES OF THE PHEREMONE MAPS
 
 #         food_map = p.get_food_pheremone_map()

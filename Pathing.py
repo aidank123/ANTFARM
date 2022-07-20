@@ -148,11 +148,11 @@ class Pathing:
         adjacent_squares = f.adjacent_squares(ant_location)
         
         #adding the surrounding squares as possible move choices
-#         for s in surrounding_squares:
-#             move_choices.append(s)
+        for s in surrounding_squares:
+            move_choices.append(s)
         
-        for s in adjacent_squares:
-             move_choices.append(s)
+#         for s in adjacent_squares:
+#              move_choices.append(s)
          
         #IF THE ANT DOESN'T HAVE FOOD, IT SHOULD SEARCH FOR FOOD
         if (has_food == False):
@@ -162,7 +162,7 @@ class Pathing:
                 move_choices_pheremone_levels.append(food_pheremone_map[m[0]][m[1]])
             
             for c in move_choices_pheremone_levels:
-                move_choices_after_randomizing.append(random.randint(randmin,randmax) * c)
+                move_choices_after_randomizing.append((1 + c) * random.randint(randmin,randmax))
                 
             
             for s in move_choices_after_randomizing:
@@ -176,7 +176,7 @@ class Pathing:
             
             
             move_choice = final_move_choices[random.randint(0,len(final_move_choices) - 1)]
-#             move_choice = self.move_towards_choice(ant_location, move_choice)
+            move_choice = self.move_towards_choice(ant_location, move_choice)
             return move_choice
         #IF THE ANT HAS FOOD, IT SHOULD SEARCH FOR HOME TO DROP IT OFF
         elif(has_food == True):
@@ -185,7 +185,7 @@ class Pathing:
                 move_choices_pheremone_levels.append(home_pheremone_map[m[0]][m[1]])
                 
             for c in move_choices_pheremone_levels:
-                move_choices_after_randomizing.append(random.randint(randmin,randmax) * c)
+                move_choices_after_randomizing.append((1 + c) * random.randint(randmin,randmax))
             
             for s in move_choices_after_randomizing:
                 if (s >= high_val):
@@ -197,7 +197,7 @@ class Pathing:
                     final_move_choices.append(move_choices[i])
             
             move_choice = final_move_choices[random.randint(0,len(final_move_choices) - 1)]
-#             move_choice = self.move_towards_choice(ant_location, move_choice)
+            move_choice = self.move_towards_choice(ant_location, move_choice)
             return move_choice
             
     def move_towards_choice(self, ant_location, move): #this method will choose the adjacent square which moves the ant closer to its optimal choice, decided in local_search

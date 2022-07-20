@@ -11,7 +11,7 @@ class Variables:
     def update_total_food_collected(self):
         self.total_food_collected += 1
         self.set_total_food_collected(self.total_food_collected)
-        print(total_food_collected)
+        print(self.total_food_collected)
         
     def set_total_food_collected(self, new_total):
         

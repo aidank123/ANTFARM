@@ -27,8 +27,8 @@ class Globals:
         self.RANDMIN = 0 #min value that a pheromone value can be multiplied by when randomizing ant decisions
         self.RANDMAX = 10 #max value that a pheromone value can be multiplied by when randomizing ant decisions
         
-        self.FOOD_PHEREMONE_MAX = 10 #how many units of food pheremone an ant starts with
-        self.HOME_PHEREMONE_MAX = 10 #how many units of home pheremone an ant starts with
+        self.FOOD_PHEREMONE_MAX = 20 #how many units of food pheremone an ant starts with
+        self.HOME_PHEREMONE_MAX = 20 #how many units of home pheremone an ant starts with
         
         
     def get_number_of_ants(self):

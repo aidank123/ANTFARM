@@ -1,6 +1,5 @@
 ToDo: 
 
-
 ----Right now the ants are super prone to getting stuck. Ants that have food get stuck trying to get home using overly simple, non-randomized pathing. Ants that are looking for food will follow those ants because they are dropping food pheromones. They all group together in this manner. 
 
 	-the randomness range factor definitely helps with this. Ants move a lot more randomly and
@@ -8,8 +7,3 @@ ToDo:
 
 	-the smelling radius also seems to help them see outside of these local minimums.
 
----WHY DO ANTS TEND TO MOVE UP AND TOWARD THE LEFT WHEN USING THE SMELL RADIUS? THE GRID OFF SMELLING IS OFFSET TOWARDS THAT DIRECTION BUT ANTS SHOULD NOT ALSO MOVE TO THAT DIRECTION, AS FAR AS I KNOW?
-
----AFTER ONE ANT FINDS FOOD, IT WILL BECOME STUCK AND THEN OTHER ANTS WILL GET STUCK WITH IT BECAUSE THE FOOD PHEREMONE NEVER FULLY GOES AWAY AND IS STILL THE BEST OPTION FOR AN ANT, EVEN WITH THE RANDOMIZATION 
-
-	-possible solution: each ant has a set amount of pheromone once it leaves the nest, this 		should allow for the pheromone values to decay more naturally and the ants will not get stuck in loops chasing each other. (Done?)
