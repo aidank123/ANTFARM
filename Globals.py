@@ -13,22 +13,22 @@ class Globals:
         self.HEIGHT = 200 #height of the screen
         self.HIVE_LOCATIONS = [[50,50]] #must be formatted in this way so the x and y values can be indexed
         self.HIVE_SIZE = 4 #how large to draw the hive
-        self.FOOD_LOCATIONS = [[100,100]]
+        self.FOOD_LOCATIONS = [[75,75]]
         self.FOOD_SIZE = 4 #how large to draw the food
         self.ANT_COLOR = BLACK 
         self.MAP_COLOR = WHITE
         self.FOOD_COLOR = BLUE
         self.HIVE_COLOR = GREEN
-        self.PHEREMONE_DECAY_RATE = .01 #rate of pheromone decay
-        self.PHEREMONE_DEPOSIT_RATE = .05 #rate of pheromone deposit
-        self.ANT_SMELL_RADIUS = 10 #how many squares away can an ant smells
+        self.PHEREMONE_DECAY_RATE = .05 #rate of pheromone decay
+        self.PHEREMONE_DEPOSIT_RATE = .1 #rate of pheromone deposit
+        self.ANT_SMELL_RADIUS = 3 #how many squares away can an ant smells
         
         #increasing the range of these values will increasing the randomness by which an ant operates
         self.RANDMIN = 0 #min value that a pheromone value can be multiplied by when randomizing ant decisions
-        self.RANDMAX = 10 #max value that a pheromone value can be multiplied by when randomizing ant decisions
+        self.RANDMAX = 20#max value that a pheromone value can be multiplied by when randomizing ant decisions
         
-        self.FOOD_PHEREMONE_MAX = 20 #how many units of food pheremone an ant starts with
-        self.HOME_PHEREMONE_MAX = 20 #how many units of home pheremone an ant starts with
+        self.FOOD_PHEREMONE_MAX = 10 #how many units of food pheremone an ant starts with
+        self.HOME_PHEREMONE_MAX = 10 #how many units of home pheremone an ant starts with
         
         
     def get_number_of_ants(self):

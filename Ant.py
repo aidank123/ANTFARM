@@ -138,8 +138,12 @@ class Ant(pygame.sprite.Sprite):
 
                 if p in HIVE_LOCATIONS:
                     self.has_food = False
+                    #update amount of food collected
                     self.update_food_collected()
-
+                    #set pheromone values back to original because any has visited the hive
+                    self.food_pheremone_value = FOOD_PHEREMONE_VALUE
+                    self.home_pheremone_value = HOME_PHEREMONE_VALUE
+                    
     def update_food_map(self):
         #only update if the ant has not run out of this pheremone
         if(self.food_pheremone_value > 0):

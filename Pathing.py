@@ -26,106 +26,6 @@ class Pathing:
     def __init__(self):
         
         self.move_choice = 0
-    
-    #currently set up for ants to explore while no food signals have been found
-    def local_search(self, ant_location, has_food):
-        
-        low_val = 100000
-        high_val = 0
-        move_choices = []
-        move_choice = []
-        
-        
-        #check the squares surrounding the ant location that it can smell
-        surrounding_squares = f.surrounding_squares(ant_location)
-        
-        adjacent_squares = f.adjacent_squares(ant_location)
-        
-        #IF THE DOESN'T HAVE FOOD:
-        if (has_food == False):
-            #print("looking for food")
-            for s in surrounding_squares:
-                if (food_pheremone_map[s[0]][s[1]] > 0):
-                    #high_val = food_pheremone_map[s[0]][s[1]]
-                    move_choices.append(s)
-
-            ###########################################################
-            #move on pheremone trail towards food
-
-            if (len(move_choices) != 0):
-                
-                food_loc = FOOD_LOCATIONS[0]
-                food_x = food_loc[0]
-                food_y = food_loc[1]
-                
-                for m in move_choices:
-                    if(f.distance_squared(m[0],m[1],food_x,food_y) < low_val):
-                        low_val = f.distance_squared(m[0],m[1],food_x,food_y)
-                        move_choice = m
-                        
-
-#TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR FOOD
-#                 for s in surrounding_squares:
-#                     if(food_pheremone_map[s[0]][s[1]] > high_val):
-#                         high_val = food_pheremone_map[s[0]][s[1]]
-#                 
-#                 for x in surrounding_squares:
-#                     if(food_pheremone_map[x[0]][x[1]] == high_val):
-#                         move_choices.append(x)
-#                         
-#                 #choose a random move from all options that have been determined to be equally as good
-#                 rand = random.randint(0,len(move_choices) - 1)
-#                 move_choice = move_choices[rand]
-                
-                
-                
-                
-                move_choice = self.move_towards_choice(ant_location, move_choice)
-                return move_choice
-            else:    
-                rand = random.randint(0,len(adjacent_squares) - 1)
-                return adjacent_squares[rand]
-            
-        elif (has_food == True):
-
-            for s in surrounding_squares:
-                if (home_pheremone_map[s[0]][s[1]] > 0):
-                    #high_val = food_pheremone_map[s[0]][s[1]]
-                    move_choices.append(s)
-                    
-            if (len(move_choices) != 0):
-                
-                hive_loc = HIVE_LOCATIONS[0]
-                hive_x = hive_loc[0]
-                hive_y = hive_loc[1]
-
-                for m in move_choices:
-                    if(f.distance_squared(m[0],m[1],hive_x,hive_y) < low_val):
-                        low_val = f.distance_squared(m[0],m[1],hive_x,hive_y)
-                        move_choice = m
-
-#TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR HOME
-#                 for s in surrounding_squares:
-#                     if(home_pheremone_map[s[0]][s[1]] > high_val):
-#                         high_val = home_pheremone_map[s[0]][s[1]]
-#                 
-#                 for x in surrounding_squares:
-#                     if(home_pheremone_map[x[0]][x[1]] == high_val):
-#                         move_choices.append(x)
-#                         
-#                 #choose a random move from all options that have been determined to be equally as good
-#                 rand = random.randint(0,len(move_choices) - 1)
-#                 move_choice = move_choices[rand]
-                
-                
-                
-                
-                move_choice = self.move_towards_choice(ant_location, move_choice)
-                return move_choice
-            else:
-
-                rand = random.randint(0,len(adjacent_squares) - 1)
-                return adjacent_squares[rand]    
 
     def local_search_2(self, ant_location, has_food):
         
@@ -157,12 +57,15 @@ class Pathing:
         #IF THE ANT DOESN'T HAVE FOOD, IT SHOULD SEARCH FOR FOOD
         if (has_food == False):
             
+            food_loc = FOOD_LOCATIONS[0]
+            food_x = food_loc[0]
+            food_y = food_loc[1]
             #lets add some scores to the move_choices_pheremone_levels array
             for m in move_choices:
                 move_choices_pheremone_levels.append(food_pheremone_map[m[0]][m[1]])
             
             for c in move_choices_pheremone_levels:
-                move_choices_after_randomizing.append((1 + c) * random.randint(randmin,randmax))
+                move_choices_after_randomizing.append((1 + c) * random.randint(randmin,randmax) * 1/(f.distance_squared(ant_location[0],ant_location[1],food_x,food_y)))
                 
             
             for s in move_choices_after_randomizing:
@@ -222,10 +125,10 @@ class Pathing:
     #this method will take in the pheremones surrounding the ant and randomly decide, based on how attractive each choice is, which direction to move.
     #the thresholds for the decision will need to be fine-tuned.
         
-    def pheremone_calculator(self): 
-        print('hi')
-        
-        
+#     def pheremone_calculator(self): 
+#         print('hi')
+#         
+#         
     #def simulated_annealing(self, ant_location, has_food): 
 #     def go_home
 #         
@@ -267,3 +170,104 @@ class Pathing:
 #             for x in surrounding_squares:
 #                 if(home_pheremone_map[x[0]][x[1]] >= high_val):
 #                     move_choices.append(x)
+
+
+#     #currently set up for ants to explore while no food signals have been found
+#     def local_search(self, ant_location, has_food):
+#         
+#         low_val = 100000
+#         high_val = 0
+#         move_choices = []
+#         move_choice = []
+#         
+#         
+#         #check the squares surrounding the ant location that it can smell
+#         surrounding_squares = f.surrounding_squares(ant_location)
+#         
+#         adjacent_squares = f.adjacent_squares(ant_location)
+#         
+#         #IF THE DOESN'T HAVE FOOD:
+#         if (has_food == False):
+#             #print("looking for food")
+#             for s in surrounding_squares:
+#                 if (food_pheremone_map[s[0]][s[1]] > 0):
+#                     #high_val = food_pheremone_map[s[0]][s[1]]
+#                     move_choices.append(s)
+# 
+#             ###########################################################
+#             #move on pheremone trail towards food
+# 
+#             if (len(move_choices) != 0):
+#                 
+#                 food_loc = FOOD_LOCATIONS[0]
+#                 food_x = food_loc[0]
+#                 food_y = food_loc[1]
+#                 
+#                 for m in move_choices:
+#                     if(f.distance_squared(m[0],m[1],food_x,food_y) < low_val):
+#                         low_val = f.distance_squared(m[0],m[1],food_x,food_y)
+#                         move_choice = m
+#                         
+# 
+#TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR FOOD
+#                 for s in surrounding_squares:
+#                     if(food_pheremone_map[s[0]][s[1]] > high_val):
+#                         high_val = food_pheremone_map[s[0]][s[1]]
+#                 
+#                 for x in surrounding_squares:
+#                     if(food_pheremone_map[x[0]][x[1]] == high_val):
+#                         move_choices.append(x)
+#                         
+#                 #choose a random move from all options that have been determined to be equally as good
+#                 rand = random.randint(0,len(move_choices) - 1)
+#                 move_choice = move_choices[rand]
+#                 
+#                 
+#                 
+#                 
+#                 move_choice = self.move_towards_choice(ant_location, move_choice)
+#                 return move_choice
+#             else:    
+#                 rand = random.randint(0,len(adjacent_squares) - 1)
+#                 return adjacent_squares[rand]
+#             
+#         elif (has_food == True):
+# 
+#             for s in surrounding_squares:
+#                 if (home_pheremone_map[s[0]][s[1]] > 0):
+#                     #high_val = food_pheremone_map[s[0]][s[1]]
+#                     move_choices.append(s)
+#                     
+#             if (len(move_choices) != 0):
+#                 
+#                 hive_loc = HIVE_LOCATIONS[0]
+#                 hive_x = hive_loc[0]
+#                 hive_y = hive_loc[1]
+# 
+#                 for m in move_choices:
+#                     if(f.distance_squared(m[0],m[1],hive_x,hive_y) < low_val):
+#                         low_val = f.distance_squared(m[0],m[1],hive_x,hive_y)
+#                         move_choice = m
+# 
+# #TRYING TO MAKE CHOICES ONLY INVOLVING PHEROMONES WHILE SEARCHING FOR HOME
+# #                 for s in surrounding_squares:
+# #                     if(home_pheremone_map[s[0]][s[1]] > high_val):
+# #                         high_val = home_pheremone_map[s[0]][s[1]]
+# #                 
+# #                 for x in surrounding_squares:
+# #                     if(home_pheremone_map[x[0]][x[1]] == high_val):
+# #                         move_choices.append(x)
+# #                         
+# #                 #choose a random move from all options that have been determined to be equally as good
+# #                 rand = random.randint(0,len(move_choices) - 1)
+# #                 move_choice = move_choices[rand]
+#                 
+#                 
+#                 
+#                 
+#                 move_choice = self.move_towards_choice(ant_location, move_choice)
+#                 return move_choice
+#             else:
+# 
+#                 rand = random.randint(0,len(adjacent_squares) - 1)
+#                 return adjacent_squares[rand]    

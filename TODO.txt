@@ -1,9 +1,2 @@
-ToDo: 
-
-----Right now the ants are super prone to getting stuck. Ants that have food get stuck trying to get home using overly simple, non-randomized pathing. Ants that are looking for food will follow those ants because they are dropping food pheromones. They all group together in this manner. 
-
-	-the randomness range factor definitely helps with this. Ants move a lot more randomly and
- 	don't get stuck in local maximums.
-
-	-the smelling radius also seems to help them see outside of these local minimums.
+--Improve the ant pathing. Decent right now.
 
