@@ -6,6 +6,10 @@
 
 -All of the different variables used to initialize the game, such as number of ants and game colors, can be edited in the "Globals.py" file.
 
+#### Visualization
+
+
+![App screenshot](https://github.com/aidank123/ANTFARM/blob/main/antfarm_sc.png?raw=true)
 
 #### Sources:
 
